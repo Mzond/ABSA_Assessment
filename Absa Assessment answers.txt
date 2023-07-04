@@ -1,0 +1,69 @@
+const BREED_LIST_ALL = 'https://dog.ceo/api/breeds/list/all';
+
+function populateDogList() {
+	const promise = fetch(BREED_LIST_ALL);
+	promise
+		.then((response) => {
+            const processedResponse = response.json();
+            return processedResponse;
+        })
+        .then((data) => {
+            const breedList = Object.keys(data.message);
+            breedList.map((breed) => {
+                const option = document.createElement('option');
+                option.value = breed;
+                option.innerText = breed;
+                dogDropdown.appendChild(option);
+            });
+        });
+}
+
+window.addEventListener('click', populateDogList());
+------------------------------------------------------------------------------------------------
+
+var name = 'retriever'
+$.ajax({
+    method: 'GET',
+    url: 'https://api.api-ninjas.com/v1/dogs?name=' + name,
+    headers: { 'X-Api-Key': 'abcdef12345'},
+    contentType: 'application/json',
+    success: function(result) {
+        console.log(result);
+    },
+    error: function ajaxError(jqXHR) {
+        console.error('Error: ', jqXHR.responseText);
+    }
+});
+
+
+---------------------------------------------------------------------------------------------------
+'use strict';
+
+function getDogBreed(breed) {
+  fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
+    .then(response => response.json())
+    .then(responseJson => 
+      displayResults(responseJson))
+    .catch(error => alert('Something went wrong. Try again later.'));
+}
+
+function displayResults(responseJson) {
+  console.log(responseJson);
+  $('.results').removeClass('hidden');
+}
+
+function watchForm() {
+  $('form').submit(event => {
+    event.preventDefault();
+    getDogBreed($('#breed').val());
+  });
+}
+
+$(function() {
+  console.log('Verify - retriever  is within the list!');
+  watchForm();
+});
+
+
+
+TASK 2
